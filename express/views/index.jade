@@ -26,13 +26,15 @@ block content
           h1= title
             small  v#{version}
           p Welcome to #{title} Brunch with Jade
+          p: small <i class="icon-thumbs-up"></i> Based on
+              a(href="https://github.com/elving/brunch-with-hipsters", target="_blank") Brunch with Hipsters and Bootstrap
           p: a(class="btn btn-primary btn-large", href="https://github.com/jerfowler/ExpressBrunchJade", target="_blank") Learn more
     - while (packages.length>0) {
         mixin packages(packages.splice(0, 3))
     - }
     hr
     footer
-      p © Company 2012
+      p © Company 2013
 
 block scripts
   script(src='javascripts/vendor.js', defer)

@@ -1,0 +1,21 @@
+extends layout
+
+block head
+
+  link(rel="stylesheet", href="stylesheets/test.css")
+
+block content
+
+  #mocha
+
+block scripts
+
+  script(src='../javascripts/vendor.js')
+  script(src='../javascripts/app.js')
+  script(src="javascripts/test-vendor.js")
+  script(src="javascripts/test.js")
+  script
+    $(function() { 
+      if (window.mochaPhantomJS) { mochaPhantomJS.run(); } 
+      else { mocha.run(); }
+    });

@@ -1,0 +1,5 @@
+Model = require 'lib/collection'
+
+module.exports = class {{#camelize}}{{pluralName}}{{/camelize}}Collection Collection.extend(
+    model: require 'models/{{name}}'
+)

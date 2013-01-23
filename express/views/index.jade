@@ -1,0 +1,45 @@
+extends layout
+
+include mixins/packages
+
+block head
+  script
+    window.brunch = window.brunch || {};
+    window.brunch['auto-reload'] = { enable: true };
+  link(rel='stylesheet', href='stylesheets/app.css')
+  //if IE 7
+      link(rel='stylesheet', href='stylesheets/font-awesome-ie7.min.css')
+    script(src='javascripts/head.js')
+
+block content
+  .container
+    .navbar.navbar-inverse
+      .navbar-inner
+        a.brand(href="https://github.com/jerfowler/ExpressBrunchJade", target="_blank") Express Brunch with Jade
+        ul.nav
+          li: a(href="http://expressjs.com/", target="_blank") Express
+          li: a(href="http://brunch.io", target="_blank") Brunch
+          li: a(href="http://jade-lang.com/", target="_blank") Jade
+    .row
+      .span12
+        .hero-unit
+          h1= title
+            small  v#{version}
+          p Welcome to #{title} Brunch with Jade
+          p: a(class="btn btn-primary btn-large", href="https://github.com/jerfowler/ExpressBrunchJade", target="_blank") Learn more
+    - while (packages.length>0) {
+        mixin packages(packages.splice(0, 3))
+    - }
+    hr
+    footer
+      p © Company 2012
+
+block scripts
+  script(src='javascripts/vendor.js', defer)
+  script(src='javascripts/app.js', defer, onload="require('initialize');")
+  // Google Analytics: change UA-XXXXX-X to be your site's ID.
+  script
+    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));

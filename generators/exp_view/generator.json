@@ -1,0 +1,7 @@
+{
+    "files": [{
+        "from": "exp_view.coffee.hbs",
+        "to": "express/views/{{name}}.jade"
+    }],
+    "dependencies": []
+}

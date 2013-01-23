@@ -1,5 +1,4 @@
-#ExpressBrunchJade
-=================
+#Express Brunch with Jade
 
 Express Brunch with Jade is a [Brunch](http://brunch.io/) app skeleton that is based on hipsters but adds a custom Express Server and Jade client & server side templates. If Brunch with Hipsters was awesome before awesome was awesome. Express Brunch with Jade is just pure sweetness...
 

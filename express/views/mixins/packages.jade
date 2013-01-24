@@ -2,7 +2,8 @@ mixin packages(packages)
   .row
     - each package in packages
       .span4
-        h2= package.name 
-          small  v#{package.version}
-        p!= package.desc
-        p: a(class="btn", href="#{package.url}", target="_blank") Learn more
+        .package
+          h2= package.name 
+            small  v#{package.version}
+          p!= package.desc
+          p: a(class="btn", href="#{package.url}", target="_blank") Learn more

@@ -1,6 +1,23 @@
 module.exports = Model = Backbone.Model.extend(
-    setSilent: (attributes) ->
-        @set(attributes, { silent: yes })
+    setSilent: (key, val, options) ->
+        if typeof key is 'object'
+            attrs = key
+            options = val or {}
+        else
+            (attrs = {})[key] = val
+            options = options or {}
+
+        @set(attr, _.extend(options, { silent: yes }))
+
+    setValid: (key, val, options) ->
+        if typeof key is 'object'
+            attrs = key
+            options = val or {}
+        else
+            (attrs = {})[key] = val
+            options = options or {}
+
+        @set(attr, _.extend(options, { validate: true }))
 
     push: (attribute, values...) ->
         obj  = {}

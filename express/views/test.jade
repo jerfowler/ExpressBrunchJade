@@ -1,21 +1,18 @@
-extends layout
+html
+  head
+    meta(charset='utf-8')
+    title= title
+    link(rel="stylesheet", href="stylesheets/test.css")
 
-block head
+    script(src='../javascripts/vendor.js')
+    script(src='../javascripts/app.js')
+    script(src="javascripts/test-vendor.js")
+    script(src="javascripts/test.js")
+    script
+      $(function() {
+        if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+        else { mocha.run(); }
+      });
 
-  link(rel="stylesheet", href="stylesheets/test.css")
-
-block content
-
-  #mocha
-
-block scripts
-
-  script(src='../javascripts/vendor.js')
-  script(src='../javascripts/app.js')
-  script(src="javascripts/test-vendor.js")
-  script(src="javascripts/test.js")
-  script
-    $(function() { 
-      if (window.mochaPhantomJS) { mochaPhantomJS.run(); } 
-      else { mocha.run(); }
-    });
+  body
+    #mocha

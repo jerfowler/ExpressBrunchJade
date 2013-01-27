@@ -11,9 +11,9 @@ exports.config =
             joinTo:
                 'javascripts/app.js': /^app/
                 'javascripts/head.js': /^vendor(\/|\\)head/
-                'javascripts/vendor.js': /^vendor(\/|\\)(?!head)/
-                'test/javascripts/test.js': /^test(\/|\\)(?!vendor)/
-                'test/javascripts/test-vendor.js': /^test(\/|\\)(?=vendor)/
+                'javascripts/vendor.js': /^vendor(\/|\\)(?!head|test)/
+                'test/javascripts/test-vendor.js': /^vendor(\/|\\)test/
+                'test/javascripts/test.js': /^test/
             order:
                 # Files in `vendor` directories are compiled before other files
                 # even if they aren't specified in order.
@@ -24,13 +24,13 @@ exports.config =
                     'vendor/scripts/backbone.js'
                 ]
                 after: [
-                    'test/vendor/scripts/test-helper.js'
+                    'vendor/test/scripts/test-helper.js'
                 ]
 
         stylesheets:
             joinTo: 
-                'stylesheets/app.css': /^(app|vendor)/
-                'test/stylesheets/test.css': /^test/
+                'stylesheets/app.css': /^(app|vendor(\/|\\)(?!test))/
+                'test/stylesheets/test.css': /^test|vendor(\/|\\)test/
             order:
                 before: [
                     'vendor/styles/normalize.css'

@@ -25,4 +25,3 @@ describe 'AppView', ->
   it "should have rendered only once", ->
     expect( @view ).to.have.property('renderTimes')
       .and.equal(1)
-

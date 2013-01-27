@@ -1,4 +1,5 @@
 module.exports = Collection = Backbone.Collection.extend(
-    resetSilent: (models) ->
-        @reset(models, silent: yes)
+    resetSilent: (models, options) ->
+        options = options or {}
+        @reset models, _.extend {}, options, silent: yes
 )

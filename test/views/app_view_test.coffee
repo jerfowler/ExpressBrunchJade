@@ -16,12 +16,16 @@ describe 'AppView', ->
     @view.destroy()
 
   it "should exist", ->
-    expect( @view ).to.be.ok
+    # expect( @view ).to.be.ok
+    should.exist(@view)
 
   it "should have rendered", ->
-    expect( @view ).to.have.property('rendered')
-      .and.to.be.true
+    # expect( @view ).to.have.property('rendered')
+    #   .and.to.be.true
+    @view.should.have.property('rendered').and.be.true
+
 
   it "should have rendered only once", ->
-    expect( @view ).to.have.property('renderTimes')
-      .and.equal(1)
+    # expect( @view ).to.have.property('renderTimes')
+    #   .and.equal(1)
+    @view.should.have.property('renderTimes').and.equal(1)

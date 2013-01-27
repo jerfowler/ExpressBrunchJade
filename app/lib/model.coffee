@@ -7,7 +7,7 @@ module.exports = Model = Backbone.Model.extend(
             (attrs = {})[key] = val
             options = options or {}
 
-        @set(attrs, _.extend(options, { silent: yes }))
+        @set attrs, _.extend {}, options, silent: yes 
 
     setValid: (key, val, options) ->
         if typeof key is 'object'
@@ -17,95 +17,87 @@ module.exports = Model = Backbone.Model.extend(
             (attrs = {})[key] = val
             options = options or {}
 
-        @set(attrs, _.extend(options, { validate: true }))
-
-    push: (attribute, values...) ->
-        obj  = {}
-        attr = @get(attribute)
-
-        attr.push(values...)
-        obj[attribute] = attr
-
-        @set(obj)
+        @set attrs, _.extend {}, options, validate: true
 
     pop: (attribute) ->
-        obj  = {}
-        attr = @get(attribute)
+        attr = @get attribute
+        item = attr.pop()
+        (obj = {})[attribute] = attr
+        @set obj
 
-        attr.pop()
-        obj[attribute] = attr
+        item
 
-        @set(obj)
+    push: (attribute, values...) ->
+        attr = @get attribute
+        length = attr.push values...
+        (obj = {})[attribute] = attr
+        @set obj
 
-    reverse: (attribute) ->
-        obj  = {}
-        attr = @get(attribute)
-
-        attr.reverse()
-        obj[attribute] = attr
-
-        @set(obj)
+        length
 
     shift: (attribute) ->
-        obj  = {}
-        attr = @get(attribute)
+        attr = @get attribute
+        item = attr.shift()
+        (obj = {})[attribute] = attr
+        @set obj
 
-        attr.shift()
-        obj[attribute] = attr
-
-        @set(obj)
+        item
 
     unshift: (attribute, values...) ->
-        obj  = {}
-        attr = @get(attribute)
+        attr = @get attribute
+        length = attr.unshift values...
+        (obj = {})[attribute] = attr
+        @set obj
 
-        attr.unshift(values...)
-        obj[attribute] = attr
-
-        @set(obj)
+        length
 
     splice: (attribute, values...) ->
-        obj  = {}
-        attr = @get(attribute)
+        attr = @get attribute
+        items = attr.splice values...
+        (obj = {})[attribute] = attr
+        @set obj
 
-        attr.splice(values...)
-        obj[attribute] = attr
+        items
 
-        @set(obj)
+    reverse: (attribute) ->
+        attr = @get attribute
+        items = attr.reverse()
+        (obj = {})[attribute] = attr
+
+        @set obj
+
+    sort: (attribute, fn) ->
+        attr = @get attribute
+        attr.sort fn
+        (obj = {})[attribute] = attr
+
+        @set obj
 
     add: (attribute, values...) ->
-        obj  = {}
-        attr = @get(attribute)
-
+        attr = @get attribute
         attr += value for value in values
-        obj[attribute] = attr
+        (obj = {})[attribute] = attr
 
-        @set(obj)
+        @set obj
 
     subtract: (attribute, values...) ->
-        obj  = {}
-        attr = @get(attribute)
-
+        attr = @get attribute
         attr -= value for value in values
-        obj[attribute] = attr
+        (obj = {})[attribute] = attr
 
-        @set(obj)
+        @set obj
 
     divide: (attribute, values...) ->
-        obj  = {}
-        attr = @get(attribute)
-
+        attr = @get attribute
         attr /= value for value in values
-        obj[attribute] = attr
+        (obj = {})[attribute] = attr
 
-        @set(obj)
+        @set obj
 
     multiply: (attribute, values...) ->
-        obj  = {}
-        attr = @get(attribute)
-
+        attr = @get attribute
         attr *= value for value in values
-        obj[attribute] = attr
+        (obj = {})[attribute] = attr
 
-        @set(obj)
+        @set obj
 )

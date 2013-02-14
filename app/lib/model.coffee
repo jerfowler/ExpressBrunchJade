@@ -7,7 +7,7 @@ module.exports = Model = Backbone.Model.extend(
             (attrs = {})[key] = val
             options = options or {}
 
-        @set attrs, _.extend {}, options, silent: yes 
+        @set attrs, _.extend {}, options, silent: yes
 
     setValid: (key, val, options) ->
         if typeof key is 'object'

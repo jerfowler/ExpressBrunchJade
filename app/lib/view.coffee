@@ -1,99 +1,86 @@
 Model = require 'lib/model'
 
 module.exports = View = Backbone.View.extend(
-    debug: off
-
-    startDebugging: ->
-        @on "#{@cid}:initialize", -> console.debug "Initialized #{@name}", @
-        @on "#{@cid}:render", -> console.debug "Rendered #{@name}", @
-        @on "#{@cid}:update", -> console.debug "Updated #{@name}", @
-        @on "#{@cid}:destroy", -> console.debug "Destroyed #{@name}", @
 
     type: 'view'
 
     name: null
 
+    debug: off
+
     autoRender: off
 
     rendered: no
 
-    model: new Model()
+    model: null
 
-    template: -> ''
+    mixins: {}
 
     # jQuery Shortcuts
     html: (dom) ->
+        return @$el.html() unless dom?
         @$el.html(dom)
-        @trigger "#{@cid}:#{if @rendered then 'update' else 'render'}", @
+        @trigger "change:DOM", @
         @$el
 
     append: (dom) ->
         @$el.append(dom)
-        @trigger "#{@cid}:#{if @rendered then 'update' else 'render'}", @
+        @trigger "change:DOM", @
         @$el
 
     prepend: (dom) ->
         @$el.prepend(dom)
-        @trigger "#{@cid}:#{if @rendered then 'update' else 'render'}", @
+        @trigger "change:DOM", @
         @$el
 
-    after: (dom) ->
-        @$el.after(dom)
-        @trigger "#{@cid}:update", @
-        @$el
+    attr: (prop, value) ->
+        @$el.attr(prop, value)
 
-    before: (dom) ->
-        @$el.after(dom)
-        @trigger "#{@cid}:update", @
-        @$el
-
-    css: (css) ->
-        @$el.css(css)
-        @trigger "#{@cid}:update", @
-        @$el
+    css: (prop, value) ->
+        @$el.css(prop, value)
 
     find: (selector) ->
         @$el.find(selector)
 
-    delegate: (event, selector, handler) ->
-        handler = selector if arguments.length is 2
-        handler = (handler).bind @
+    #template function should be overridden in descendants
+    template: (data) -> 'REPLACE ME'
 
-        if arguments.length is 2
-            @$el.on event, handler
-        else
-            @$el.on event, selector, handler
+    templateData: ->
+        data = @model?.toJSON() or {}
+        _.extend data, @mixins
 
-    # Use bootstrap method instead of initialize
-    bootstrap: ->
+    setModel: (model) ->
+        @stopListening(@model) if @model?
+        @model = model
+        @listenTo @model, 'change', @render
+        @listenTo @model, 'destroy', @destroy
+
+    startDebugging: ->
+        @on "initialize", -> console.debug "Initialized #{@name}: #{@cid}", @
+        @on "change:DOM", -> console.debug "DOM Changed #{@name}: #{@cid}", @
+        @on "render", -> console.debug "Rendered #{@name}: #{@cid}", @
+        @on "destroy", -> console.debug "Destroyed #{@name}: #{@cid}", @
 
     initialize: ->
-        @bootstrap()
-
-        @name = @name or @constructor.name
+        @trigger "initialize:before", @
+        @name = @name or @constructor.name or 'View'
         @startDebugging() if @debug is on
         @render() if @autoRender is on
-
-        @trigger "#{@cid}:initialize", @
-
-    getRenderData: ->
-        @model?.toJSON()
+        if @model?
+            @listenTo @model, 'change', @render
+            @listenTo @model, 'destroy', @destroy
+        @trigger "initialize", @
 
     render: ->
-        @trigger "#{@cid}:render:before", @
-
-        @$el.attr('data-cid', @cid)
-        @html @template(@getRenderData())
+        @trigger "render:before", @
+        @attr 'data-cid', @cid
+        @html @template @templateData()
         @rendered = yes
-
-        @trigger "#{@cid}:render:after", @
+        @trigger "render", @
         @
 
-    destroy: (keepDOM = no) ->
-        @trigger "#{@cid}:destroy:before", @
-
-        if keepDOM then @dispose() else @remove()
-        @model?.destroy()
-
-        @trigger "#{@cid}:destroy:after", @
+    destroy: ->
+        @trigger "destroy:before", @
+        @remove()
+        @trigger "destroy", @
 )

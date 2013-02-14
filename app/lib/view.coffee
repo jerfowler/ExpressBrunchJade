@@ -1,5 +1,3 @@
-Model = require 'lib/model'
-
 module.exports = View = Backbone.View.extend(
 
     type: 'view'

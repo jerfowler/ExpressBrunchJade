@@ -44,18 +44,22 @@ module.exports = View = Backbone.View.extend(
     template: (data) -> 'REPLACE ME'
 
     templateData: ->
-        data = @model?.toJSON() or {}
-        _.extend data, @mixins
+        _.extend (@model?.toJSON() or {}), @mixins
 
     setModel: (model) ->
         @stopListening(@model) if @model?
         @model = model
-        @listenTo @model, 'change', @render
-        @listenTo @model, 'destroy', @destroy
+        @render() if @autoRender is on
+        if @model?
+            @listenTo @model, 'change', @render
+            @listenTo @model, 'destroy', @destroy
+        @trigger "change:model", @
+        @
 
     startDebugging: ->
         @on "initialize", -> console.debug "Initialized #{@name}: #{@cid}", @
         @on "change:DOM", -> console.debug "DOM Changed #{@name}: #{@cid}", @
+        @on "change:model", -> console.debug "Model Changed #{@name}: #{@cid}", @
         @on "render", -> console.debug "Rendered #{@name}: #{@cid}", @
         @on "destroy", -> console.debug "Destroyed #{@name}: #{@cid}", @
 

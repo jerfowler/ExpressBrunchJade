@@ -1,10 +1,13 @@
-View      = require 'lib/view'
-AppRouter = require 'routers/app_router'
+View = require 'lib/view'
 
 module.exports = AppView = View.extend(
-    el: 'body.application'
+    el: '#AppView'
 
-    initialize: ->
-        @router = new AppRouter()
-        App?.Routers?.AppRouter = @router
+    name: 'AppView'
+
+    debug: on
+
+    autoRender: on
+
+    template: require 'views/templates/app_view'
 )

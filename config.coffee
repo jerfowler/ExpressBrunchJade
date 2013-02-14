@@ -45,6 +45,6 @@ exports.config =
             joinTo: 'javascripts/app.js'
     server:
         path: 'server.coffee'
+        watch: ['express/lib', 'express/models', 'express/routes']
         port: 3333
         base: '/'
-        run: yes

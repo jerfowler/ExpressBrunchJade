@@ -28,8 +28,7 @@ exports.startServer = (port, path, callback) ->
   ### Default 404 middleware ###
   app.use routes.error('Page not found :(', 404)
 
-  http.createServer(app)
+  server = http.createServer(app)
     .listen(port, ->
-      console.log "Express server listening on port " + port
-      callback()
+      callback(server)
     )

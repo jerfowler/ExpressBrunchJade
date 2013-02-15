@@ -5,4 +5,4 @@ window.mocha.setup({ui: 'bdd'});
 window.expect = chai.expect;
 
 // Alternative should syntax
-window.should = chai.should();
+var should = chai.should();

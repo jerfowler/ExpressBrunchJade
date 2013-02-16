@@ -48,22 +48,22 @@ or
 
 The `brunch test` command is pretty much broke. It uses jsdom, which has many issues... Plans are in the works for brunch to use phantomjs in the future. Until then, there are better ways to run tests:
 
-- Mocha in the browser, Just open http://localhost:3333/test/ after running:
+- Mocha in the browser, Just open your browser to `http://localhost:3333/test/` after running:
 
-    brunch w -s
+      brunch w -s
   
   Note: Doesn't work in IE and some tests fail in firefox... 
 
 - mocha-phantomjs 
 
-    npm install -g mocha-phantomjs
-    mocha-phantomjs public/test/index.html
+      npm install -g mocha-phantomjs
+      mocha-phantomjs public/test/index.html
 
   Note: Windows phantomjs support is sketchy (path issues)
 
 - Testacular!!! Best approach, multiple browser tests (including phantomjs)...
 
-    npm install -g testacular
-    testacular start
+      npm install -g testacular
+      testacular start
 
   Note: On Windows x64, use `testacular.x64_ENV.bat` to help with browser paths

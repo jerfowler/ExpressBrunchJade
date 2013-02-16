@@ -1,24 +1,21 @@
 Model = require 'lib/model'
 
-class ModelTest extends Model
-
-    defaults: 
-        name: 'test'
-        value: 0
-
-    set: (key, val, options) ->
-        super
-
-    validate: (attrs) ->
-        return 'value needs to be greater than 0' if attrs.value < 0
-
 describe 'lib/model', ->
-    beforeEach ->
+    beforeEach (done) ->
+        ModelTest = Model.extend(
+            defaults: 
+                name: 'test'
+                value: 0
+
+            validate: (attrs) ->
+                return 'value needs to be greater than 0' if attrs.value < 0
+        )
+        @spy = sinon.spy ModelTest.prototype, 'set'
         @model = new ModelTest()
-        @spy = sinon.spy(@model, 'set')
+        # Ugly IE fix, See mocha/issues/502
+        setTimeout done, 0
 
     afterEach ->
-        @model.set.restore()
         @model.destroy()
 
     describe 'setSilent', ->
@@ -98,23 +95,17 @@ describe 'lib/model', ->
         beforeEach ->
             @model.set('numSet', [0,1,2,3,4,5])
 
-        afterEach ->
-            @model.unset('numSet')
-
         it 'Remove an item from the end of the attribute', ->
             @model.pop('numSet')
             expect(@model.get('numSet')).to.eql([0, 1, 2, 3, 4 ])
 
         it 'Returns the last item from the end of the attribute', ->
             item = @model.pop('numSet')
-            item.should.equal(5)
+            expect(item).to.equal(5)
 
     describe 'push', ->
         beforeEach ->
             @model.set('numSet', [0,1,2,3,4,5])
-
-        afterEach ->
-            @model.unset('numSet')
 
         it 'Add an item to the end of the attribute', ->
             @model.push('numSet', 6)
@@ -126,14 +117,11 @@ describe 'lib/model', ->
 
         it 'Returns the new length of the array', ->
             length = @model.push('numSet', 6, 7, 8, 9)
-            length.should.equal(10)
+            expect(length).to.equal(10)
 
     describe 'shift', ->
         beforeEach ->
             @model.set('numSet', [2,3,4,5])
-
-        afterEach ->
-            @model.unset('numSet')
 
         it 'Remove an item from the end of the attribute', ->
             @model.shift('numSet')
@@ -141,14 +129,11 @@ describe 'lib/model', ->
 
         it 'Return the last item from the end of the attribute', ->
             item = @model.shift('numSet')
-            item.should.equal(2)
+            expect(item).to.equal(2)
 
     describe 'unshift', ->
         beforeEach ->
             @model.set('numSet', [2,3,4,5])
-
-        afterEach ->
-            @model.unset('numSet')
 
         it 'Add an item to the end of the attribute', ->
             @model.unshift('numSet', 1)
@@ -160,14 +145,11 @@ describe 'lib/model', ->
 
         it 'Returns the new length of the array', ->
             length = @model.unshift('numSet', -1, 0, 1)
-            length.should.equal(7)
+            expect(length).to.equal(7)
 
     describe 'splice', ->
         beforeEach ->
             @model.set('numSet', [2,3,4,5])
-
-        afterEach ->
-            @model.unset('numSet')
 
         it 'Adds and removes items', ->
             @model.splice('numSet', 0, 2, 1, 2, 3)
@@ -180,9 +162,6 @@ describe 'lib/model', ->
     describe 'sort', ->
         beforeEach ->
             @model.set('numSet', [6,2,1,4,3,5])
-
-        afterEach ->
-            @model.unset('numSet')  
 
         it 'Sorts the items', ->
             @model.sort('numSet')
@@ -204,9 +183,6 @@ describe 'lib/model', ->
         beforeEach ->
             @model.set('numSet', [2,3,4,5])
 
-        afterEach ->
-            @model.unset('numSet')            
-
         it 'Reverses the items', ->
             @model.reverse('numSet')
             expect(@model.get('numSet')).to.eql([5,4,3,2])     
@@ -218,9 +194,6 @@ describe 'lib/model', ->
     describe 'add', ->
         beforeEach ->
             @model.set('value', 0)
-
-        afterEach ->
-            @model.unset('value')
 
         it 'Adds the values', ->
             @model.add('value', 6, 7, 8)
@@ -235,9 +208,6 @@ describe 'lib/model', ->
         beforeEach ->
             @model.set('value', 21)
 
-        afterEach ->
-            @model.unset('value')
-
         it 'Subtracts the values', ->
             @model.subtract('value', 6, 7, 8)
             expect(@model.get('value')).to.equal(0) 
@@ -250,8 +220,9 @@ describe 'lib/model', ->
         beforeEach ->
             @model.set('value', 1000)
 
-        afterEach ->
-            @model.unset('value')
+        it 'Divides by a single value', ->
+            @model.divide('value', 10)
+            expect(@model.get('value')).to.equal(100) 
 
         it 'Divides by the values', ->
             @model.divide('value', 10, 5)
@@ -265,8 +236,9 @@ describe 'lib/model', ->
         beforeEach ->
             @model.set('value', 1)
 
-        afterEach ->
-            @model.unset('value')
+        it 'Multiplies by a single value', ->
+            @model.multiply('value', 6)
+            expect(@model.get('value')).to.equal(6) 
 
         it 'Multiplies by the values', ->
             @model.multiply('value', 6, 7, 8)

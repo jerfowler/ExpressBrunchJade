@@ -1,10 +1,11 @@
 # App Namespace
-# Change `App` to your app's name
-@App ?= _.extend {}, Backbone.Events
-App.Routers ?= {}
-App.Views ?= {}
-App.Models ?= {}
-App.Collections ?= {}
+App = 
+    Routers: {}
+    Views: {}
+    Models: {}
+    Collections: {}
+
+module.exports = _.extend App, Backbone.Events
 
 $ ->
 	

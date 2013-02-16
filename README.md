@@ -52,7 +52,7 @@ The `brunch test` command is pretty much broke. It uses jsdom, which has many is
 
     brunch w -s
   
-Note: Doesn't work in IE and some tests fail in firefox... 
+Note: Doesn't work in IE. Some tests fail with `global leak detected` in firefox if firebug isn't on... 
 
 ### mocha-phantomjs 
 

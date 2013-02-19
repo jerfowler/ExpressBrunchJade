@@ -25,6 +25,9 @@
         "coffeelint-brunch": "> 1.0 < 1.5",
         "auto-reload-brunch": "> 1.0 < 1.5",
 
+        "chokidar": "*",
+        "async": "*",
+
         "express": "*",
         "jade": "*"
     },

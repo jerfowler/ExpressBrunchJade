@@ -1,34 +1,31 @@
+config = (require './config').config
+initWatcher = require './lib/watcher'
+http = require 'http'
+
+server = null
+
+restart =  (port, callback) ->
+    return unless server?.close?
+    server.close ->
+        express = require './express'
+        server = http.createServer(express).listen(port, callback)
 
 exports.startServer = (port, path, callback) ->
-  express = require 'express'
-  routes = require './express/routes'
-  path = require 'path'
-  http = require 'http'
-  app = express()
+    express = require './express'
+    server = http.createServer(express).listen(port, callback)
+    server.on 'close', ->
+        server = null
 
-  app.configure ->
-    app.set 'views', path.join __dirname, 'express', 'views'
-    app.set 'view engine', 'jade'
-    app.use express.favicon()
-    app.use express.logger 'dev'
-    app.use express.bodyParser()
-    app.use express.methodOverride()
-    app.use express.cookieParser('Express Brunch Rules!')
-    app.use express.session()
-    app.use app.router
-    app.use express.static path.join __dirname, 'public'
+    if config?.server?.watched?
+        watched = config.server.watched
+        ignored = config.server.ignored
+        initWatcher watched, ignored, (watcher, snapshot) ->
+            watcher
+                .on 'add', (path) ->
+                    restart port, callback unless path in snapshot
+                .on 'change', (path) ->
+                    restart port, callback
+                .on 'unlink', (path) ->
+                    restart port, callback 
 
-  app.configure 'development', ->
-    app.use express.errorHandler()
-    app.locals.pretty = true
-
-  app.get '/', routes.index('Express', express.version)
-  app.get '/test', routes.test('Mocha Tests')
-
-  ### Default 404 middleware ###
-  app.use routes.error('Page not found :(', 404)
-
-  server = http.createServer(app)
-    .listen(port, ->
-      callback(server)
-    )
+    server

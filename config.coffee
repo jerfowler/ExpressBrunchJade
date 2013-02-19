@@ -45,6 +45,7 @@ exports.config =
             joinTo: 'javascripts/app.js'
     server:
         path: 'server.coffee'
-        watch: ['express/lib', 'express/models', 'express/routes']
         port: 3333
         base: '/'
+        watched: ['express/config.coffee', 'express/index.coffee', 'express/lib', 'express/models', 'express/routes']
+        ignored: /(^[.#]|(?:~)$)/

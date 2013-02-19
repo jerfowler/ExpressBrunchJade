@@ -57,11 +57,11 @@ module.exports = View = Backbone.View.extend(
         @
 
     startDebugging: ->
-        @on "initialize", -> console.debug "Initialized #{@name}: #{@cid}", @
-        @on "change:DOM", -> console.debug "DOM Changed #{@name}: #{@cid}", @
-        @on "change:model", -> console.debug "Model Changed #{@name}: #{@cid}", @
-        @on "render", -> console.debug "Rendered #{@name}: #{@cid}", @
-        @on "destroy", -> console.debug "Destroyed #{@name}: #{@cid}", @
+        @on "initialize", -> console.debug "Initialized #{@name}: #{@cid}",@
+        @on "change:DOM", -> console.debug "DOM Changed #{@name}: #{@cid}",@
+        @on "change:model", -> console.debug "Model Changed #{@name}: #{@cid}",@
+        @on "render", -> console.debug "Rendered #{@name}: #{@cid}",@
+        @on "destroy", -> console.debug "Destroyed #{@name}: #{@cid}",@
 
     initialize: ->
         @trigger "initialize:before", @

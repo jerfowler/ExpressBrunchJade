@@ -1,5 +1,5 @@
 # App Namespace
-App = 
+App =
     Routers: {}
     Views: {}
     Models: {}

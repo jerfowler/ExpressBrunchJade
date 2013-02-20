@@ -1,12 +1,13 @@
 express = require 'express'
-routes = require './routes'
+join = (require 'path').join
 config = (require './config').config
-path = require 'path'
+routes = require './routes'
+http = require 'http'
 
 app = express()
 
 app.configure ->
-    app.set 'views', path.join __dirname, 'views'
+    app.set 'views', join __dirname, 'views'
     app.set 'view engine', config.view.engine
     app.use express.favicon()
     app.use express.logger 'dev'
@@ -15,7 +16,7 @@ app.configure ->
     app.use express.cookieParser(config.cookie.secret)
     app.use express.session()
     app.use app.router
-    app.use express.static path.join __dirname, '..', 'public'
+    app.use express.static join __dirname, '..', 'public'
 
 app.configure 'development', ->
     app.use express.errorHandler()
@@ -27,4 +28,4 @@ app.get '/test', routes.test('Mocha Tests')
 ### Default 404 middleware ###
 app.use routes.error('Page not found :(', 404)
 
-module.exports = app
+module.exports = exports =  http.createServer(app)

@@ -1,5 +1,5 @@
-config = (require './config').config
-resolve = (require 'path').resolve
+{config} = (require './config')
+{resolve} = (require 'path')
 initWatcher = require './lib/watcher'
 
 server = null
@@ -10,11 +10,12 @@ resetCache = (snapshot) ->
         path = resolve path
         for key of require.cache
             if key is path
-                delete require.cache[key]
+                delete require.cache[key] 
+                break 
         for item,key in module.children
             if item.id is path
                 module.children.splice(key,1) 
-                break        
+                break 
 
 restart = (port, callback, snapshot) ->
     server.close ->
@@ -33,9 +34,9 @@ restart = (port, callback, snapshot) ->
 
 module.exports.startServer = (port, path, callback) ->
     server = require './express'
-    server.listen port, callback
     server.on 'connection', (socket) ->
         socket.setTimeout 10*1000
+    server.listen port, callback
 
     if config?.server?.watched?
         watched = config.server.watched

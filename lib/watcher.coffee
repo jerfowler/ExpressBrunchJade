@@ -1,7 +1,7 @@
-Walker = require './walker'
 exists = (require 'fs').exists or (require 'path').exists
-basename = (require 'path').basename
+{basename} = require 'path'
 chokidar = require 'chokidar'
+Walker = require './walker'
 async = require 'async'
 
 ignored = (reg) ->

@@ -1,6 +1,6 @@
-EventEmitter = require('events').EventEmitter
-basename = (require 'path').basename
-join = (require 'path').join
+{EventEmitter} = require 'events'
+{basename} = require 'path'
+{join} = require 'path'
 util = require 'util'
 fs = require 'fs'
 
@@ -33,13 +33,13 @@ class Walker extends EventEmitter
             list.forEach (file) =>
                 @_stat join path, file
             delete @_paths[path]
+            @emit 'end', @_files if Object.keys(@_paths).length is 0
 
     _file: (file) ->
-        delete @_paths[file]        
         unless @_options.ignore.test basename file
             @_files.push file
             @emit 'file', file
+        delete @_paths[file]
         @emit 'end', @_files if Object.keys(@_paths).length is 0
-
 
 module.exports = Walker

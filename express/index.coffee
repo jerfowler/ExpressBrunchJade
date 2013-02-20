@@ -1,6 +1,6 @@
 express = require 'express'
-{join} = (require 'path')
-{config} = (require './config')
+{join} = require 'path'
+{config} = require './config'
 routes = require './routes'
 http = require 'http'
 

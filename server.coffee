@@ -1,5 +1,5 @@
-{config} = (require './config')
-{resolve} = (require 'path')
+{config} = require './config'
+{resolve} = require 'path'
 initWatcher = require './lib/watcher'
 
 server = null

@@ -64,6 +64,6 @@ Note: Windows phantomjs support is sketchy (path issues)
 ### Testacular!!! Best approach, multiple browser tests (including phantomjs)...
 
     npm install -g testacular
-    testacular start
+    testacular start --browsers Chrome,ChromeCanary,Firefox,PhantomJS
 
 Note: On Windows x64, use `testacular.x64_ENV.bat` to help with browser paths

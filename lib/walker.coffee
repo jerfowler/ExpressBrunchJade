@@ -1,8 +1,7 @@
 {EventEmitter} = require 'events'
-{basename} = require 'path'
-{join} = require 'path'
-util = require 'util'
-fs = require 'fs'
+{basename, join} = require 'path'
+{stat, readdir} = require 'fs'
+{isArray} = require 'util'
 
 class Walker extends EventEmitter
     constructor: (paths, options) ->
@@ -10,36 +9,44 @@ class Walker extends EventEmitter
 
     walk: (paths, options={}) ->
         @_options = options
-        @_options.ignore ?= /a^/
+        #ignore nothing by default
+        @_options.ignore ?= /a^/ 
         @_files = []
         @_paths = {}
-        if util.isArray(paths)
-            paths.forEach (path) =>
-                @_stat path
-        else
-            @_stat paths
+        paths = [paths] if not isArray paths
+        @_stat path for path in paths
         @
 
     _stat: (path) ->
         @_paths[path] = path
-        fs.stat path, (err, stats) =>
-            @emit 'error', err if err
-            @_dir(path) if stats.isDirectory()
-            @_file(path) if stats.isFile()
-
+        stat path, (err, stats) =>
+            return @_error path, err if err
+            return @_dir path if stats.isDirectory()
+            return @_file path if stats.isFile()
+            @_other path, stats
+            
     _dir: (path) ->
-        fs.readdir path, (err, list) =>
-            @emit 'error', err if err
-            list.forEach (file) =>
-                @_stat join path, file
+        readdir path, (err, list) =>
+            return @_error path, err if err
+            @_stat join path, file for file in list
             delete @_paths[path]
             @emit 'end', @_files if Object.keys(@_paths).length is 0
 
-    _file: (file) ->
-        unless @_options.ignore.test basename file
-            @_files.push file
-            @emit 'file', file
-        delete @_paths[file]
+    _file: (path) ->
+        unless @_options.ignore.test basename path
+            @_files.push path
+            @emit 'file', path
+        delete @_paths[path]
         @emit 'end', @_files if Object.keys(@_paths).length is 0
 
-module.exports = Walker
+    _other: (path, stats) ->
+        @emit 'other', path, stats
+        delete @_paths[path]
+        @emit 'end', @_files if Object.keys(@_paths).length is 0
+
+    _error: (path, err) ->
+        @emit 'error', path, err
+        delete @_paths[path]
+        @emit 'end', @_files if Object.keys(@_paths).length is 0
+
+module.exports = exports = Walker

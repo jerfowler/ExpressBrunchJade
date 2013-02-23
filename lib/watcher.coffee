@@ -1,16 +1,16 @@
 exists = (require 'fs').exists or (require 'path').exists
-{basename} = require 'path'
-chokidar = require 'chokidar'
 Walker = require './walker'
-async = require 'async'
+{watch} = require 'chokidar'
+{basename} = require 'path'
+{filter} = require 'async'
 
-ignored = (reg) ->
+getIgnored = (reg) ->
     (path) ->
         reg.test basename path
 
-module.exports = (watched, ignore, callback) ->
-    async.filter watched, exists, (files) ->
-        walker = new Walker files, ignore: ignore
+module.exports = exports = (watched, ignored, callback) ->
+    filter watched, exists, (files) ->
+        walker = new Walker files, ignore: ignored
         walker.on 'end', (snapshot) ->
-            watcher = chokidar.watch files, ignored: ignored(ignore), persistent: true
+            watcher = watch files, ignored: getIgnored(ignored), persistent: true
             callback watcher, snapshot

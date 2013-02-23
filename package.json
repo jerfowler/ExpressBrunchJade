@@ -1,40 +1,39 @@
 {
-    "author": "Your Name",
-    "name": "package-name",
-    "description": "Package description",
-    "version": "0.0.1",
-    "homepage": "",
-    "repository": {
-        "type": "git",
-        "url": ""
-    },
-    "engines": {
-        "node": "~0.6.10 || 0.8 || 0.9"
-    },
-    "scripts": {
-        "start": "brunch watch --server"
-    },
-    "dependencies": {
-        "javascript-brunch": "> 1.0 < 1.5",
-        "coffee-script-brunch": "> 1.0 < 1.5",
-        "css-brunch": "> 1.0 < 1.5",
-        "stylus-brunch": "> 1.0 < 1.5",
-        "jade-brunch": "> 1.0 < 1.5",
-        "uglify-js-brunch": "> 1.0 < 1.5",
-        "clean-css-brunch": "> 1.0 < 1.5",
-        "coffeelint-brunch": "> 1.0 < 1.5",
-        "auto-reload-brunch": "> 1.0 < 1.5",
-
-        "chokidar": "*",
-        "async": "*",
-
-        "express": "*",
-        "jade": "*"
-    },
-    "devDependencies": {
-        "mocha": "*",
-        "chai": "*",
-        "sinon": "*",
-        "sinon-chai": "*"
-    }
+  "author": "Your Name",
+  "name": "package-name",
+  "description": "Package description",
+  "version": "0.0.1",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": "~0.6.10 || 0.8 || 0.9"
+  },
+  "scripts": {
+    "start": "brunch watch --server"
+  },
+  "dependencies": {
+    "javascript-brunch": "> 1.0 < 1.5",
+    "coffee-script-brunch": "> 1.0 < 1.5",
+    "css-brunch": "> 1.0 < 1.5",
+    "stylus-brunch": "> 1.0 < 1.5",
+    "jade-brunch": "> 1.0 < 1.5",
+    "uglify-js-brunch": "> 1.0 < 1.5",
+    "clean-css-brunch": "> 1.0 < 1.5",
+    "coffeelint-brunch": "> 1.0 < 1.5",
+    "chokidar": "*",
+    "async": "*",
+    "socket.io": "*",
+    "express": "*",
+    "jade": "*",
+    "debug": "~0.7.2"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "sinon": "*",
+    "sinon-chai": "*"
+  }
 }

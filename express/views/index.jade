@@ -3,13 +3,10 @@ extends layout
 include mixins/packages
 
 block head
-  script
-    window.brunch = window.brunch || {};
-    window.brunch['auto-reload'] = { enable: true };
   link(rel='stylesheet', href='stylesheets/app.css')
   //if IE 7
       link(rel='stylesheet', href='stylesheets/font-awesome-ie7.min.css')
-    script(src='javascripts/head.js')
+  script(src='javascripts/head.js')
 
 block content
   .container
@@ -39,7 +36,8 @@ block content
   #AppView
     
 block scripts
-  script(src='javascripts/vendor.js', defer)
+  script(src='/socket.io/socket.io.js')
+  script(src='javascripts/vendor.js')
   script(src='javascripts/app.js', defer, onload="require('initialize');")
   // Google Analytics: change UA-XXXXX-X to be your site's ID.
   script

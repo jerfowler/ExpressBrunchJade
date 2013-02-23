@@ -1,8 +1,12 @@
 {config} = require './config'
 {resolve} = require 'path'
 initWatcher = require './lib/watcher'
+{inspect} = require 'util'
+http = require 'http'
+debug = require('debug')('brunch:server')
 
 server = null
+sockets = []
 
 # Hot code push
 resetCache = (snapshot) ->
@@ -12,32 +16,25 @@ resetCache = (snapshot) ->
             if key is path
                 delete require.cache[key] 
                 break 
-        for item,key in module.children
-            if item.id is path
-                module.children.splice(key,1) 
-                break 
 
-restart = (port, callback, snapshot) ->
-    server.close ->
+start = (port, callback) ->
+    server = http.createServer (req, res) ->
+        app = require './express'            
+        app(req, res)
+    io = require('socket.io').listen server
+    io.set('log level', 1);
+    io.of('/brunch')
+        .on 'connection', (socket) =>
+            sockets.push socket
+    server.listen port, callback    
+
+reload = (port, callback, snapshot) ->
+    socket.emit 'reload', 1000 for socket in sockets
+    sockets = []
     resetCache snapshot
-    server = require './express'
-    server.on 'connection', (socket) ->
-        socket.setTimeout 10*1000
-    server.on 'error', (e) ->
-        if e.code is 'EADDRINUSE'
-            console.log 'Address in use, retrying...'
-            setTimeout ->
-                server.close()
-                server.listen port, callback
-            , 1000
-    server.listen port, callback
 
 module.exports.startServer = (port, path, callback) ->
-    server = require './express'
-    server.on 'connection', (socket) ->
-        socket.setTimeout 10*1000
-    server.listen port, callback
-
+    start(port, callback)
     if config?.server?.watched?
         watched = config.server.watched
         ignored = config.server.ignored
@@ -45,12 +42,15 @@ module.exports.startServer = (port, path, callback) ->
             watcher
                 .on 'add', (path) ->
                     unless path in snapshot
-                        restart port, callback, snapshot
+                        debug 'New file detected: '+path
+                        reload port, callback, snapshot
                         snapshot.push path
                 .on 'change', (path) ->
-                    restart port, callback, snapshot
+                    debug 'File changed: '+path
+                    reload port, callback, snapshot
                 .on 'unlink', (path) ->
-                    restart port, callback, snapshot
+                    debug 'File deleted: '+path
+                    reload port, callback, snapshot
                     idx = snapshot.indexOf path
                     snapshot.splice idx, 1 if idx isnt -1
     server

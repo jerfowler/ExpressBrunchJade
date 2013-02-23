@@ -1,16 +1,16 @@
 #Express Brunch with Jade
 
-Express Brunch with Jade is a [Brunch](http://brunch.io/) app skeleton that is based on hipsters but adds a custom Express Server and Jade client & server side templates. If Brunch with Hipsters was awesome before awesome was awesome. Express Brunch with Jade is just pure sweetness...
+Express Brunch with Jade is a [Brunch](http://brunch.io/) app skeleton that has everything hipsters has, but adds a custom Express Server, public & server file watcher, built-in socket.io reload, custom Backbone model/view/collection helpers, Jade client & server side templates and over 70 mocha BDD tests.
 
-Express brunch has a custom server.coffee file that watches all the server files you specify and restarts the http server when it detects a change. 
+Express Brunch with Jade's custom server.coffee file watches any files you specify, server and/or public static file compiled by brunch, reloads the Express App and sends a socket.io reload command to the client when it detects a change. 
 
-Files that are watched and ignored are configured under the server section in the config.coffee:
+Files & Directories that are watched and ignored are configured under the server section in the config.coffee:
 
     server:
         path: 'server.coffee'
         port: 3333
         base: '/'
-        watched: ['express/config.coffee', 'express/index.coffee', 'express/lib', 'express/models', 'express/routes']
+        watched: ['public', 'express']
         ignored: /(^[.#]|(?:~)$)/
 
 ## Languages
@@ -30,7 +30,6 @@ Files that are watched and ignored are configured under the server section in th
 - [jQuery v1.9.0](http://jquery.com)
 - [Normalize.css v2.1.0](http://necolas.github.com/normalize.css)
 - [Modernizr v2.6.2](https://github.com/Modernizr/Modernizr)
-- [Brunch Auto-Reload v1.3.2](https://github.com/brunch/auto-reload-brunch)
 - [Coffeelint 1.4.4](https://github.com/ilkosta/coffeelint-brunch)
 
 ## Testing Framework
@@ -78,3 +77,7 @@ Note: Windows phantomjs support is sketchy (path issues)
     testacular start --browsers Chrome,ChromeCanary,Firefox,PhantomJS
 
 Note: On Windows x64, use `testacular.x64_ENV.bat` to help with browser paths
+
+## Debugging
+
+Brunch debug events can be monitored by setting the `DEBUG=brunch:*` environment variable. 

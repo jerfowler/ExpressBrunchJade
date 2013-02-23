@@ -25,6 +25,7 @@ exports.config =
                 ]
                 after: [
                     'vendor/test/scripts/test-helper.js'
+                    'vendor/scripts/brunch.js'
                 ]
 
         stylesheets:
@@ -47,5 +48,5 @@ exports.config =
         path: 'server.coffee'
         port: 3333
         base: '/'
-        watched: ['express/config.coffee', 'express/index.coffee', 'express/lib', 'express/models', 'express/routes']
+        watched: ['public', 'express']
         ignored: /(^[.#]|(?:~)$)/

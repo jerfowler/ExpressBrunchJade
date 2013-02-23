@@ -2,7 +2,6 @@ express = require 'express'
 {join} = require 'path'
 {config} = require './config'
 routes = require './routes'
-http = require 'http'
 
 app = express()
 
@@ -28,4 +27,4 @@ app.get '/test', routes.test('Mocha Tests')
 ### Default 404 middleware ###
 app.use routes.error('Page not found :(', 404)
 
-module.exports = exports =  http.createServer(app)
+module.exports = exports = app

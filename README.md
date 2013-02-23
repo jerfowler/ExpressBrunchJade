@@ -1,6 +1,6 @@
 #Express Brunch with Jade
 
-Express Brunch with Jade is a [Brunch](http://brunch.io/) app skeleton that has everything hipsters has, but adds a custom Express Server, public & server file watcher, built-in socket.io reload, custom Backbone model/view/collection helpers, Jade client & server side templates and over 70 mocha BDD tests.
+Express Brunch with Jade is a [Brunch](http://brunch.io/) app skeleton that has everything [hipsters](https://github.com/elving/brunch-with-hipsters) has, but adds a custom Express Server, public & server file watcher, built-in socket.io reload, custom Backbone model/view/collection helpers, Jade client & server side templates and over 70 mocha BDD tests.
 
 Express Brunch with Jade's custom server.coffee file watches any files you specify, server and/or public static file compiled by brunch, reloads the Express App and sends a socket.io reload command to the client when it detects a change. 
 

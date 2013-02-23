@@ -1,9 +1,8 @@
+debug = require('debug')('brunch:server')
 {config} = require './config'
 {resolve} = require 'path'
 initWatcher = require './lib/watcher'
-{inspect} = require 'util'
 http = require 'http'
-debug = require('debug')('brunch:server')
 
 server = null
 sockets = []
@@ -22,16 +21,16 @@ start = (port, callback) ->
         app = require './express'            
         app(req, res)
     io = require('socket.io').listen server
-    io.set('log level', 1);
+    io.set 'log level', 1
     io.of('/brunch')
         .on 'connection', (socket) =>
             sockets.push socket
     server.listen port, callback    
 
 reload = (port, callback, snapshot) ->
+    resetCache snapshot
     socket.emit 'reload', 1000 for socket in sockets
     sockets = []
-    resetCache snapshot
 
 module.exports.startServer = (port, path, callback) ->
     start(port, callback)

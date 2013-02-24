@@ -4,8 +4,11 @@ debug = require('debug')('brunch:server')
 initWatcher = require './lib/watcher'
 http = require 'http'
 
+app = require './express'
+sockets = require './express/sockets'
 server = null
-sockets = []
+io = null
+clients = {}
 
 # Hot code push
 resetCache = (snapshot) ->
@@ -16,21 +19,32 @@ resetCache = (snapshot) ->
                 delete require.cache[key] 
                 break 
 
+listener = (req, res) ->
+    app(req, res)
+
 start = (port, callback) ->
-    server = http.createServer (req, res) ->
-        app = require './express'            
-        app(req, res)
+    server = http.createServer listener
     io = require('socket.io').listen server
     io.set 'log level', 1
     io.of('/brunch')
-        .on 'connection', (socket) =>
-            sockets.push socket
+        .on 'connection', (client) =>
+            clients[client.id] = client
+            client.on 'disconnect', ->
+                delete clients[client.id]
+    for ns,connect of sockets
+        io.of(ns).on 'connection', connect
     server.listen port, callback    
 
-reload = (port, callback, snapshot) ->
+reload = (snapshot) ->
+    console.log 'Reloading..'
     resetCache snapshot
-    socket.emit 'reload', 1000 for socket in sockets
-    sockets = []
+    app = require './express'
+    sockets = require './express/sockets'
+    for ns, connect of sockets
+        delete io.namespaces[ns]
+        io.of(ns).on 'connection', connect
+    clients[id].emit 'reload', 1000 for id of clients
+    clients = {}
 
 module.exports.startServer = (port, path, callback) ->
     start(port, callback)
@@ -38,18 +52,21 @@ module.exports.startServer = (port, path, callback) ->
         watched = config.server.watched
         ignored = config.server.ignored
         initWatcher watched, ignored, (watcher, snapshot) ->
-            watcher
-                .on 'add', (path) ->
-                    unless path in snapshot
-                        debug 'New file detected: '+path
-                        reload port, callback, snapshot
-                        snapshot.push path
-                .on 'change', (path) ->
-                    debug 'File changed: '+path
-                    reload port, callback, snapshot
-                .on 'unlink', (path) ->
-                    debug 'File deleted: '+path
-                    reload port, callback, snapshot
-                    idx = snapshot.indexOf path
-                    snapshot.splice idx, 1 if idx isnt -1
+            # Wait till after Brunch initializes before watching files...
+            setTimeout ->
+                watcher
+                    .on 'add', (path) ->
+                        unless path in snapshot
+                            debug 'New file detected: '+path
+                            reload snapshot
+                            snapshot.push path
+                    .on 'change', (path) ->
+                        debug 'File changed: '+path
+                        reload snapshot
+                    .on 'unlink', (path) ->
+                        debug 'File deleted: '+path
+                        reload snapshot
+                        idx = snapshot.indexOf path
+                        snapshot.splice idx, 1 if idx isnt -1
+            , 1000
     server

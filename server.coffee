@@ -5,12 +5,10 @@ initWatcher = require './lib/watcher'
 http = require 'http'
 
 app = require './express'
-sockets = require './express/sockets'
+sockets = null
 server = null
 io = null
-clients = {}
 
-# Hot code push
 resetCache = (snapshot) ->
     for path in snapshot
         path = resolve path
@@ -26,25 +24,16 @@ start = (port, callback) ->
     server = http.createServer listener
     io = require('socket.io').listen server
     io.set 'log level', 1
-    io.of('/brunch')
-        .on 'connection', (client) =>
-            clients[client.id] = client
-            client.on 'disconnect', ->
-                delete clients[client.id]
-    for ns,connect of sockets
-        io.of(ns).on 'connection', connect
+    sockets = require('./express/sockets')(io)
     server.listen port, callback    
 
 reload = (snapshot) ->
-    console.log 'Reloading..'
+    debug 'Reloading...'
+    sockets.emit '/brunch/reload', 1000
+    sockets.destroy()
     resetCache snapshot
     app = require './express'
-    sockets = require './express/sockets'
-    for ns, connect of sockets
-        delete io.namespaces[ns]
-        io.of(ns).on 'connection', connect
-    clients[id].emit 'reload', 1000 for id of clients
-    clients = {}
+    sockets = require('./express/sockets')(io)
 
 module.exports.startServer = (port, path, callback) ->
     start(port, callback)

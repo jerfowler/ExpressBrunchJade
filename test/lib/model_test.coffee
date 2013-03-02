@@ -3,7 +3,7 @@ Model = require 'lib/model'
 describe 'lib/model', ->
     beforeEach (done) ->
         ModelTest = Model.extend(
-            defaults: 
+            defaults:
                 name: 'test'
                 value: 0
 
@@ -30,7 +30,7 @@ describe 'lib/model', ->
         it 'Accepts object style extended options', ->
             extended = silent: true, test: true
             @model.setSilent({'name':'foo'}, test: true)
-            @spy.should.have.been.calledWith({'name':'foo'}, extended)    
+            @spy.should.have.been.calledWith({'name':'foo'}, extended)
 
         it 'Accepts parameter style extended options', ->
             extended = silent: true, test: true
@@ -45,7 +45,7 @@ describe 'lib/model', ->
         it 'Should override passed silent option', ->
             extended = silent: true
             @model.setSilent({'name':'foo'}, silent: false)
-            @spy.should.have.been.calledWith({'name':'foo'}, extended)              
+            @spy.should.have.been.calledWith({'name':'foo'}, extended)
 
     describe 'setValid', ->
         beforeEach ->
@@ -66,7 +66,7 @@ describe 'lib/model', ->
         it 'Accepts object style extended options', ->
             extended = validate: true, test: true
             @model.setValid({'name':'foo'}, test: true)
-            @spy.should.have.been.calledWith({'name':'foo'}, extended)    
+            @spy.should.have.been.calledWith({'name':'foo'}, extended)
 
         it 'Accepts parameter style extended options', ->
             extended = validate: true, test: true
@@ -81,7 +81,7 @@ describe 'lib/model', ->
         it 'Should override passed validate option', ->
             extended = validate: true
             @model.setValid({'name':'foo'}, validate: false)
-            @spy.should.have.been.calledWith({'name':'foo'}, extended)  
+            @spy.should.have.been.calledWith({'name':'foo'}, extended)
 
         it 'Returns false when validation fails', ->
             result = @model.setValid('value', -1)
@@ -89,8 +89,10 @@ describe 'lib/model', ->
 
         it 'Triggers "invalid" event when validation fails', ->
             @model.setValid('value', -1)
-            @callback.should.have.been.calledWith(@model, 'value needs to be greater than 0')
-
+            @callback.should.have.been.calledWith(
+                @model,
+                'value needs to be greater than 0'
+            )
     describe 'pop', ->
         beforeEach ->
             @model.set('numSet', [0,1,2,3,4,5])
@@ -185,11 +187,11 @@ describe 'lib/model', ->
 
         it 'Reverses the items', ->
             @model.reverse('numSet')
-            expect(@model.get('numSet')).to.eql([5,4,3,2])     
+            expect(@model.get('numSet')).to.eql([5,4,3,2])
 
         it 'Returns the model object', ->
             model = @model.reverse('numSet')
-            model.should.equal(@model)            
+            model.should.equal(@model)
 
     describe 'add', ->
         beforeEach ->
@@ -197,12 +199,12 @@ describe 'lib/model', ->
 
         it 'Adds the values', ->
             @model.add('value', 6, 7, 8)
-            expect(@model.get('value')).to.equal(21) 
+            expect(@model.get('value')).to.equal(21)
 
         it 'Returns the model object', ->
             model = @model.add('value', 6, 7, 8)
-            model.should.equal(@model)              
-      
+            model.should.equal(@model)
+
 
     describe 'subtract', ->
         beforeEach ->
@@ -210,11 +212,11 @@ describe 'lib/model', ->
 
         it 'Subtracts the values', ->
             @model.subtract('value', 6, 7, 8)
-            expect(@model.get('value')).to.equal(0) 
-            
+            expect(@model.get('value')).to.equal(0)
+
         it 'Returns the model object', ->
             model = @model.subtract('value', 6, 7, 8)
-            model.should.equal(@model)   
+            model.should.equal(@model)
 
     describe 'divide', ->
         beforeEach ->
@@ -222,15 +224,15 @@ describe 'lib/model', ->
 
         it 'Divides by a single value', ->
             @model.divide('value', 10)
-            expect(@model.get('value')).to.equal(100) 
+            expect(@model.get('value')).to.equal(100)
 
         it 'Divides by the values', ->
             @model.divide('value', 10, 5)
-            expect(@model.get('value')).to.equal(20) 
-            
+            expect(@model.get('value')).to.equal(20)
+
         it 'Returns the model object', ->
             model = @model.divide('value', 10, 5)
-            model.should.equal(@model)   
+            model.should.equal(@model)
 
     describe 'multiply', ->
         beforeEach ->
@@ -238,12 +240,12 @@ describe 'lib/model', ->
 
         it 'Multiplies by a single value', ->
             @model.multiply('value', 6)
-            expect(@model.get('value')).to.equal(6) 
+            expect(@model.get('value')).to.equal(6)
 
         it 'Multiplies by the values', ->
             @model.multiply('value', 6, 7, 8)
-            expect(@model.get('value')).to.equal(336) 
-            
+            expect(@model.get('value')).to.equal(336)
+
         it 'Returns the model object', ->
             model = @model.multiply('value', 6, 7, 8)
-            model.should.equal(@model)              
+            model.should.equal(@model)

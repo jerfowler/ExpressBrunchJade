@@ -7,7 +7,7 @@ describe 'lib/view', ->
             @ViewTest = View.extend()
             @spys = {
                 debug: sinon.spy @ViewTest.prototype, 'startDebugging'
-                render: sinon.spy @ViewTest.prototype, 'render' 
+                render: sinon.spy @ViewTest.prototype, 'render'
                 before: sinon.spy()
                 after: sinon.spy()
             }
@@ -15,7 +15,7 @@ describe 'lib/view', ->
             @ViewTest::on('initialize', @spys.after)
 
         afterEach ->
-            @view.destroy()  
+            @view.destroy()
 
         it 'Should trigger: initialize:before', ->
             @view = new @ViewTest()
@@ -56,7 +56,7 @@ describe 'lib/view', ->
             @spys = {
                 attr: sinon.spy ViewTest.prototype, 'attr'
                 html: sinon.spy ViewTest.prototype, 'html'
-                tmpl: sinon.spy ViewTest.prototype, 'template' 
+                tmpl: sinon.spy ViewTest.prototype, 'template'
                 data: sinon.spy ViewTest.prototype, 'templateData'
                 before: sinon.spy()
                 after: sinon.spy()
@@ -66,7 +66,7 @@ describe 'lib/view', ->
             @view = new ViewTest()
 
         afterEach ->
-            @view.destroy()        
+            @view.destroy()
 
         it 'Should trigger: render:before', ->
             @spys.before.should.have.been.called
@@ -107,7 +107,7 @@ describe 'lib/view', ->
             ViewTest::on('destroy:before', @spys.before)
             ViewTest::on('destroy', @spys.after)
             @view = new ViewTest()
-            @view.destroy() 
+            @view.destroy()
 
         it 'Should trigger: destroy:before', ->
             @spys.before.should.have.been.called
@@ -119,7 +119,7 @@ describe 'lib/view', ->
             @spys.stopListening.should.have.been.called
 
         it 'Should trigger: destroy', ->
-            @spys.after.should.have.been.called            
+            @spys.after.should.have.been.called
 
     describe 'setModel', ->
         describe 'When the initialized model is null', ->
@@ -136,13 +136,13 @@ describe 'lib/view', ->
                 @result = @view.setModel(@model)
 
             afterEach ->
-                @view.destroy()  
+                @view.destroy()
 
             it "Should not call: stopListening", ->
                 @spys.stopListening.should.not.have.been.called
 
             it "Should set property: model, to the new model", ->
-                @view.should.have.property('model').and.equal(@model)       
+                @view.should.have.property('model').and.equal(@model)
 
             it "Should have called: listenTo", ->
                 @spys.listenTo.should.have.been.called
@@ -165,30 +165,30 @@ describe 'lib/view', ->
                 @result = @view.setModel(@model)
 
             afterEach ->
-                @view.destroy()  
+                @view.destroy()
 
             it "Should have called: stopListening", ->
                 @spys.stopListening.should.have.been.called
 
             it "Should set property: model, to the new model", ->
-                @view.should.have.property('model').and.equal(@model)       
+                @view.should.have.property('model').and.equal(@model)
 
             it "Should have called: listenTo", ->
                 @spys.listenTo.should.have.been.called
 
             it "Should be chainable (returns this)", ->
-                expect(@result).to.equal(@view)    
+                expect(@result).to.equal(@view)
 
         describe 'property: autoRender', ->
             beforeEach ->
                 ViewTest = View.extend()
                 @spys = {
-                    render: sinon.spy ViewTest.prototype, 'render' 
+                    render: sinon.spy ViewTest.prototype, 'render'
                 }
                 @view = new ViewTest()
 
             afterEach ->
-                @view.destroy()         
+                @view.destroy()
                      
             it 'When on, should call: render', ->
                 @view.autoRender = on

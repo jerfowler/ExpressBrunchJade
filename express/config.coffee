@@ -1,5 +1,5 @@
-exports.config = 
-    view: 
+exports.config =
+    view:
         engine: 'jade'
-    cookie: 
+    cookie:
         secret: 'Express Brunch Rules!'

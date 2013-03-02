@@ -28,12 +28,17 @@
     "socket.io": "*",
     "express": "*",
     "jade": "*",
-    "debug": "~0.7.2"
+    "debug": "~0.7.2",
+    "coffeelint": "*",
+    "ansi-color": "*",
+    "date-utils": "*",
+    "growl": "*"
   },
   "devDependencies": {
     "mocha": "*",
     "chai": "*",
     "sinon": "*",
-    "sinon-chai": "*"
+    "sinon-chai": "*",
+    "supertest": "*"
   }
 }

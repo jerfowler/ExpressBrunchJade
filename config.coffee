@@ -1,7 +1,7 @@
 exports.config =
     # See docs at http://brunch.readthedocs.org/en/latest/config.html.
     coffeelint:
-        pattern: /^app\/.*\.coffee$/
+        pattern: /^.*\.coffee$/
         options:
             indentation:
                 value: 4
@@ -29,7 +29,7 @@ exports.config =
                 ]
 
         stylesheets:
-            joinTo: 
+            joinTo:
                 'stylesheets/app.css': /^(app|vendor(\/|\\)(?!test))/
                 'test/stylesheets/test.css': /^test|vendor(\/|\\)test/
             order:
@@ -50,3 +50,16 @@ exports.config =
         base: '/'
         watched: ['public', 'express']
         ignored: /(^[.#]|(?:~)$)/
+        source: /.*\.coffee$/
+        coffeelint:
+            enabled: on
+            pattern: /.*\.coffee$/
+            options:
+                indentation:
+                    value: 4
+                    level: "error"
+        mocha:
+            enabled: on
+            pattern: /^.*_test\.coffee$/
+            options:
+                reporter:'spec'

@@ -1,12 +1,12 @@
 debug = require('debug')('brunch:server')
+logger = require './lib/logger'
 {config} = require './config'
 {resolve} = require 'path'
 initWatcher = require './lib/watcher'
 http = require 'http'
-
 app = require './express'
+
 sockets = null
-server = null
 io = null
 
 resetCache = (snapshot) ->
@@ -14,18 +14,18 @@ resetCache = (snapshot) ->
         path = resolve path
         for key of require.cache
             if key is path
-                delete require.cache[key] 
-                break 
+                delete require.cache[key]
+                break
 
 listener = (req, res) ->
     app(req, res)
 
 start = (port, callback) ->
     server = http.createServer listener
-    io = require('socket.io').listen server
+    io = require('socket.io').listen server, logger: logger
     io.set 'log level', 1
     sockets = require('./express/sockets')(io)
-    server.listen port, callback    
+    server.listen port, callback
 
 reload = (snapshot) ->
     debug 'Reloading...'
@@ -36,7 +36,7 @@ reload = (snapshot) ->
     sockets = require('./express/sockets')(io)
 
 module.exports.startServer = (port, path, callback) ->
-    start(port, callback)
+    server = start(port, callback)
     if config?.server?.watched?
         watched = config.server.watched
         ignored = config.server.ignored
@@ -44,18 +44,15 @@ module.exports.startServer = (port, path, callback) ->
             # Wait till after Brunch initializes before watching files...
             setTimeout ->
                 watcher
-                    .on 'add', (path) ->
-                        unless path in snapshot
-                            debug 'New file detected: '+path
-                            reload snapshot
-                            snapshot.push path
-                    .on 'change', (path) ->
-                        debug 'File changed: '+path
+                .on 'add', (path) ->
+                    unless path in snapshot
                         reload snapshot
-                    .on 'unlink', (path) ->
-                        debug 'File deleted: '+path
-                        reload snapshot
-                        idx = snapshot.indexOf path
-                        snapshot.splice idx, 1 if idx isnt -1
+                        snapshot.push path
+                .on 'change', (path) ->
+                    reload snapshot
+                .on 'unlink', (path) ->
+                    reload snapshot
+                    idx = snapshot.indexOf path
+                    snapshot.splice idx, 1 if idx isnt -1
             , 1000
     server

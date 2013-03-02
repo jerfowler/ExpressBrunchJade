@@ -10,7 +10,9 @@ class Walker extends EventEmitter
     walk: (paths, options={}) ->
         @_options = options
         #ignore nothing by default
-        @_options.ignore ?= /a^/ 
+        @_options.ignore ?= /a^/
+        #match everything by default
+        @_options.match ?= /.*/
         @_files = []
         @_paths = {}
         paths = [paths] if not isArray paths
@@ -34,8 +36,9 @@ class Walker extends EventEmitter
 
     _file: (path) ->
         unless @_options.ignore.test basename path
-            @_files.push path
-            @emit 'file', path
+            if @_options.match.test basename path
+                @_files.push path
+                @emit 'file', path
         delete @_paths[path]
         @emit 'end', @_files if Object.keys(@_paths).length is 0
 

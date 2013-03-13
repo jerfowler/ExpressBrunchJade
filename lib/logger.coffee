@@ -1,4 +1,5 @@
 'use strict'
+debug = require('debug')('brunch:server')
 
 ###
   Stolen Brunch.io Logger - for a more uniform look
@@ -40,5 +41,7 @@ logger =
 
   info: (args...) ->
     logger.log 'info', args...
+
+  debug: debug
 
 module.exports = Object.seal logger

@@ -19,13 +19,13 @@ exports.config =
                 # even if they aren't specified in order.
                 before: [
                     'vendor/scripts/json2.js'
-                    'vendor/scripts/jquery.js'
-                    'vendor/scripts/underscore.js'
-                    'vendor/scripts/backbone.js'
+                    'vendor/scripts/jquer-1.9.1.js'
+                    'vendor/scripts/underscore-1.4.4.js'
+                    'vendor/scripts/backbone-1.0.0.js'
                 ]
                 after: [
                     'vendor/test/scripts/test-helper.js'
-                    'vendor/scripts/brunch.js'
+                    'vendor/scripts/brunch-reload.js'
                 ]
 
         stylesheets:
@@ -34,13 +34,12 @@ exports.config =
                 'test/stylesheets/test.css': /^test|vendor(\/|\\)test/
             order:
                 before: [
-                    'vendor/styles/normalize.css'
-                    'vendor/styles/base.css'
-                    'vendor/styles/bootstrap.css'
-                    'vendor/styles/bootstrap-responsive.css'
+                    'vendor/styles/normalize-1.1.0.css'
+                    'vendor/styles/h5bp-base-4.1.0.css'
+                    'vendor/styles/bootstrap-2.3.1.css'
                 ]
                 after: [
-                    'vendor/styles/helpers.css'
+                    'vendor/styles/h5bp-helpers-4.1.0.css'
                 ]
         templates:
             joinTo: 'javascripts/app.js'
@@ -48,18 +47,34 @@ exports.config =
         path: 'server.coffee'
         port: 3333
         base: '/'
+        app: 'express'
         watched: ['public', 'express']
-        ignored: /(^[.#]|(?:~)$)/
-        source: /.*\.coffee$/
-        coffeelint:
+        ignore: /(^[.#]|(?:~)$)/
+        source: /^(?!public(\/|\\)).*\.(coffee|js)$/
+        debug: 'brunch:server'
+        watch: on
+        persistent: true
+        interval: 100        
+        linter:
             enabled: on
-            pattern: /.*\.coffee$/
-            options:
-                indentation:
-                    value: 4
-                    level: "error"
-        mocha:
+            coffeelint:
+                pattern: /.*\.coffee$/
+                options:
+                    indentation:
+                        value: 4
+                        level: "error"
+            jshint:
+                pattern: /.*\.js$/
+                options:
+                    bitwise: true
+                    curly: true
+                    indent: 4
+                    undef: true
+                    unused: true
+                globals: {}
+        tester:
             enabled: on
-            pattern: /^.*_test\.coffee$/
-            options:
-                reporter:'spec'
+            mocha:
+                pattern: /^.*_test\.coffee$/
+                options:
+                    reporter:'spec'

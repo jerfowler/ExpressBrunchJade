@@ -19,7 +19,7 @@ exports.config =
                 # even if they aren't specified in order.
                 before: [
                     'vendor/scripts/json2.js'
-                    'vendor/scripts/jquer-1.9.1.js'
+                    'vendor/scripts/jquery-1.9.1.js'
                     'vendor/scripts/underscore-1.4.4.js'
                     'vendor/scripts/backbone-1.0.0.js'
                 ]

@@ -20,24 +20,25 @@ Files & Directories that are watched and ignored are configured under the server
 - [Jade](http://jade-lang.com/)
 
 ## Features
-- [Express v3.0.5](http://expressjs.com)
+- [Express v3.1.0](http://expressjs.com)
 - [Jade-Brunch 1.5.0](https://github.com/brunch/jade-brunch)
-- [HTML5 Boilerplate v4.0.3](https://github.com/h5bp/html5-boilerplate)
-- [Twitter Bootstrap v2.2.2](http://twitter.github.com/bootstrap)
+- [HTML5 Boilerplate v4.1.0](https://github.com/h5bp/html5-boilerplate)
+- [Twitter Bootstrap v2.3.1](http://twitter.github.com/bootstrap)
 - [Font Awesome v3.0.2](https://github.com/FortAwesome/Font-Awesome)
-- [Backbone v0.9.10](http://backbonejs.org)
-- [Underscore 1.4.3](http://underscorejs.org)
-- [jQuery v1.9.0](http://jquery.com)
-- [Normalize.css v2.1.0](http://necolas.github.com/normalize.css)
+- [Backbone v1.0.0](http://backbonejs.org)
+- [Underscore 1.4.4](http://underscorejs.org)
+- [jQuery v1.9.1](http://jquery.com)
+- [Normalize.css v1.1.0](http://necolas.github.com/normalize.css)
 - [Modernizr v2.6.2](https://github.com/Modernizr/Modernizr)
 - [Coffeelint 1.4.4](https://github.com/ilkosta/coffeelint-brunch)
 
 ## Testing Framework
 
-- [Mocha](http://visionmedia.github.com/mocha)
-- [Chai](http://chaijs.com)
-- [Sinon](http://sinonjs.org)
-- [Sinon-Chai](http://chaijs.com/plugins/sinon-chai)
+- [Mocha v1.8.1](http://visionmedia.github.com/mocha)
+- [Chai v1.4.1](http://chaijs.com)
+- [Sinon v1.5.2](http://sinonjs.org)
+- [Sinon-Chai v2.3.1](http://chaijs.com/plugins/sinon-chai)
+- [Blanket v1.0.8](http://blanketjs.org/)
 
 ## Getting started
 

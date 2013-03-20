@@ -1,6 +1,6 @@
 $(function() {
-  if(io){
-    var brunch = io.connect('/brunch', {
+  if(window.io){
+    var brunch = window.io.connect('/brunch', {
       'connect timeout': 500,
       'reconnect': true,
       'reconnection delay': 500,

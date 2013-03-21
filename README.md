@@ -38,7 +38,6 @@ Files & Directories that are watched and ignored are configured under the server
 - [Chai v1.4.1](http://chaijs.com)
 - [Sinon v1.5.2](http://sinonjs.org)
 - [Sinon-Chai v2.3.1](http://chaijs.com/plugins/sinon-chai)
-- [Blanket v1.0.8](http://blanketjs.org/)
 
 ## Getting started
 

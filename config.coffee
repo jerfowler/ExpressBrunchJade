@@ -47,34 +47,18 @@ exports.config =
         path: 'server.coffee'
         port: 3333
         base: '/'
-        app: 'express'
         watched: ['public', 'express']
-        ignore: /(^[.#]|(?:~)$)/
-        source: /^(?!public(\/|\\)).*\.(coffee|js)$/
-        debug: 'brunch:server'
-        watch: on
-        persistent: true
-        interval: 100        
-        linter:
+        ignored: /(^[.#]|(?:~)$)/
+        source: /.*\.coffee$/
+        coffeelint:
             enabled: on
-            coffeelint:
-                pattern: /.*\.coffee$/
-                options:
-                    indentation:
-                        value: 4
-                        level: "error"
-            jshint:
-                pattern: /.*\.js$/
-                options:
-                    bitwise: true
-                    curly: true
-                    indent: 4
-                    undef: true
-                    unused: true
-                globals: {}
-        tester:
+            pattern: /.*\.coffee$/
+            options:
+                indentation:
+                    value: 4
+                    level: "error"
+        mocha:
             enabled: on
-            mocha:
-                pattern: /^.*_test\.coffee$/
-                options:
-                    reporter:'spec'
+            pattern: /^.*_test\.coffee$/
+            options:
+                reporter:'spec'

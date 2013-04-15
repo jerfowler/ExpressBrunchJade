@@ -6,13 +6,34 @@ Express Brunch with Jade's custom server.coffee file watches any files you speci
 
 Files & Directories that are watched and ignored are configured under the server section in the config.coffee:
 
+example:
+```coffeescript
     server:
         path: 'server.coffee'
         port: 3333
         base: '/'
+        app: 'express'
+        debug: 'brunch:server'
+        persistent: true
+        interval: 100
         watched: ['public', 'express']
-        ignored: /(^[.#]|(?:~)$)/
-
+        ignore: /(^[.#]|(?:~)$)/
+        source: /.*\.coffee$/
+        linter:
+            enabled: on
+            coffeelint:
+                pattern: /.*\.coffee$/
+                options:
+                    indentation:
+                        value: 4
+                        level: "error"
+        tester:
+            enabled: on
+            mocha:
+                pattern: /^.*_test\.coffee$/
+                options:
+                    reporter:'spec'
+```
 
 ## Cordell
 The server walk and watch functionality has been made into its own module called Cordell. 
@@ -47,17 +68,19 @@ The server walk and watch functionality has been made into its own module called
 ## Getting started
 
     brunch new <appname> --skeleton git://github.com/jerfowler/ExpressBrunchJade.git
+    cd <appname>
     brunch w -s
 
 or
 
     $ git clone git://github.com/jerfowler/ExpressBrunchJade.git
+    $ cd ExpressBrunchJade
     $ npm install
     $ brunch w -s
 
 or
 
-    $ git clone git://github.com/jerfowler/ExpressBrunchJade.git && npm install && brunch w -s
+    $ git clone git://github.com/jerfowler/ExpressBrunchJade.git && cd ExpressBrunchJade && npm install && brunch w -s
 
 ## Testing
 

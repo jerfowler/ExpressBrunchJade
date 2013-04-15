@@ -13,6 +13,11 @@ Files & Directories that are watched and ignored are configured under the server
         watched: ['public', 'express']
         ignored: /(^[.#]|(?:~)$)/
 
+
+## Cordell
+The server walk and watch functionality has been made into its own module called Cordell. 
+- [Cordell](https://github.com/jerfowler/cordell)
+
 ## Languages
 
 - [CoffeeScript](http://coffeescript.org/)

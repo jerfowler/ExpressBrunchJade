@@ -23,22 +23,22 @@
     "uglify-js-brunch": "> 1.0 < 1.5",
     "clean-css-brunch": "> 1.0 < 1.5",
     "coffeelint-brunch": "> 1.0 < 1.5",
-    "chokidar": "*",
     "async": "*",
     "socket.io": "*",
     "express": "*",
     "jade": "*",
     "debug": "~0.7.2",
-    "coffeelint": "*",
     "ansi-color": "*",
     "date-utils": "*",
-    "growl": "*"
+    "growl": "*",
+    "cordell": "*"
   },
   "devDependencies": {
     "mocha": "*",
     "chai": "*",
     "sinon": "*",
     "sinon-chai": "*",
-    "supertest": "*"
+    "supertest": "*",
+    "blanket": "*"
   }
 }

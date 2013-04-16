@@ -36,6 +36,7 @@ example:
 ```
 
 ## Cordell Walker - CI Ranger
+
 The server walk and watch functionality has been made into its own module called Cordell. 
 - [Cordell](https://github.com/jerfowler/cordell)
 
@@ -46,7 +47,7 @@ The server walk and watch functionality has been made into its own module called
 - [Jade](http://jade-lang.com/)
 
 ## Features
-- [Express v3.1.0](http://expressjs.com)
+- [Express v3.2.0](http://expressjs.com)
 - [Jade-Brunch 1.5.0](https://github.com/brunch/jade-brunch)
 - [HTML5 Boilerplate v4.1.0](https://github.com/h5bp/html5-boilerplate)
 - [Twitter Bootstrap v2.3.1](http://twitter.github.com/bootstrap)
@@ -65,22 +66,32 @@ The server walk and watch functionality has been made into its own module called
 - [Sinon v1.5.2](http://sinonjs.org)
 - [Sinon-Chai v2.3.1](http://chaijs.com/plugins/sinon-chai)
 
+## Code Coverage Framework
+
+- [Blanket v1.1.1](https://github.com/alex-seville/blanket)
+
+## Optimization Plugins
+
+The traditional uglify-brunch plugin has been replaced with ugly-blanket-brunch, which creates separate cov.js and min.js files.
+- [ugly-blanket-brunch v1.5.2](https://github.com/jerfowler/ugly-blanket-brunch)
+
+
 ## Getting started
 
     brunch new <appname> --skeleton git://github.com/jerfowler/ExpressBrunchJade.git
     cd <appname>
-    brunch w -s
+    brunch w -s -o
 
 or
 
     $ git clone git://github.com/jerfowler/ExpressBrunchJade.git
     $ cd ExpressBrunchJade
     $ npm install
-    $ brunch w -s
+    $ brunch w -s -o
 
 or
 
-    $ git clone git://github.com/jerfowler/ExpressBrunchJade.git && cd ExpressBrunchJade && npm install && brunch w -s
+    $ git clone git://github.com/jerfowler/ExpressBrunchJade.git && cd ExpressBrunchJade && npm install && brunch w -s -o
 
 ## Testing
 
@@ -88,7 +99,7 @@ The `brunch test` command is pretty much broke. It uses jsdom, which has many is
 
 ### Mocha in the browser, Just open your browser to `http://localhost:3333/test/` after running:
 
-    brunch w -s
+    brunch w -s -o
   
 Note: Doesn't work in IE. Some tests fail with `global leak detected` in firefox if firebug isn't on... 
 

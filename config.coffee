@@ -24,6 +24,8 @@ exports.config =
                     'vendor/scripts/backbone-1.0.0.js'
                 ]
                 after: [
+                    'vendor/test/scripts/blanket-1.1.1.js'
+                    'vendor/test/scripts/mocha-blanket-1.1.1.js'
                     'vendor/test/scripts/test-helper.js'
                     'vendor/scripts/brunch-reload.js'
                 ]

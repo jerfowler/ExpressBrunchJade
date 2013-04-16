@@ -5,8 +5,8 @@ html
     link(rel='stylesheet', href='/test/stylesheets/test.css')
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/vendor.js')
-    script(src='/javascripts/app.js')
-    script(src='/test/javascripts/test-vendor.js')
+    script(src='/javascripts/app.js', data-cover)
+    script(src='/test/javascripts/test-vendor.js', data-cover-flags="commonJS")
     script(src='/test/javascripts/test.js')
     script
       $(function() {

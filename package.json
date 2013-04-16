@@ -26,7 +26,7 @@
     "async": "*",
     "socket.io": "*",
     "express": "*",
-    "jade": "*",
+    "jade": "~0.28.2",
     "debug": "~0.7.2",
     "ansi-color": "*",
     "date-utils": "*",

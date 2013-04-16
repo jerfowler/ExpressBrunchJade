@@ -13,10 +13,12 @@ block content
     .navbar.navbar-inverse
       .navbar-inner
         a.brand(href="https://github.com/jerfowler/ExpressBrunchJade", target="_blank") Express Brunch with Jade
-        ul.nav
-          li: a(href="http://expressjs.com/", target="_blank") Express
-          li: a(href="http://brunch.io", target="_blank") Brunch
-          li: a(href="http://jade-lang.com/", target="_blank") Jade
+        .nav-collapse.collapse
+          ul.nav
+            li: a(href="http://expressjs.com/", target="_blank") Express
+            li: a(href="http://brunch.io", target="_blank") Brunch
+            li: a(href="http://jade-lang.com/", target="_blank") Jade
+          #LoginView
     .row
       .span12
         .hero-unit

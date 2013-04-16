@@ -9,7 +9,7 @@
     "url": ""
   },
   "engines": {
-    "node": "~0.6.10 || 0.8 || 0.9"
+    "node": "~0.6.10 || 0.8 || 0.9 || 0.10"
   },
   "scripts": {
     "start": "brunch watch --server"
@@ -22,7 +22,7 @@
     "jade-brunch": "> 1.0 < 1.5",
     "clean-css-brunch": "> 1.0 < 1.5",
     "coffeelint-brunch": "> 1.0 < 1.5",
-    "ugly-blanket-brunch": "~1.5.2",
+    "ugly-blanket-brunch": "~1.5.3",
     "async": "*",
     "socket.io": "*",
     "express": "*",

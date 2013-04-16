@@ -5,6 +5,9 @@ routes = require './routes'
 
 app = express()
 
+app.configure 'production', ->
+    app.use express.limit '5mb'
+
 app.configure ->
     app.set 'views', join __dirname, 'views'
     app.set 'view engine', config.view.engine
@@ -12,8 +15,10 @@ app.configure ->
     app.use express.logger 'dev'
     app.use express.bodyParser()
     app.use express.methodOverride()
+    app.use express.compress()
     app.use express.cookieParser(config.cookie.secret)
     app.use express.session()
+    app.use express.csrf()
     app.use app.router
     app.use express.static join __dirname, '..', 'public'
 

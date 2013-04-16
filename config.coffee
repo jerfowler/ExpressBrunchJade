@@ -6,13 +6,18 @@ exports.config =
             indentation:
                 value: 4
                 level: "error"
+    plugins:
+        uglify:
+            pattern: /\.js$/
+
     files:
         javascripts:
             joinTo:
                 'javascripts/app.js': /^app/
                 'javascripts/head.js': /^vendor(\/|\\)head/
                 'javascripts/vendor.js': /^vendor(\/|\\)(?!head|test)/
-                'test/javascripts/test-vendor.js': /^vendor(\/|\\)test/
+                'test/javascripts/test-vendor.js': /^vendor(\/|\\)test(\/|\\)scripts(\/|\\)(?!blanket|mocha-blanket)/
+                'test/javascripts/blanket.js': /^vendor(\/|\\)test(\/|\\)scripts(\/|\\)(blanket|mocha-blanket)/
                 'test/javascripts/test.js': /^test/
             order:
                 # Files in `vendor` directories are compiled before other files

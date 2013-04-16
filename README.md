@@ -70,28 +70,32 @@ The server walk and watch functionality has been made into its own module called
 
 - [Blanket v1.1.1](https://github.com/alex-seville/blanket)
 
-## Optimization Plugins
-
-The traditional uglify-brunch plugin has been replaced with ugly-blanket-brunch, which creates separate cov.js and min.js files.
-- [ugly-blanket-brunch v1.5.2](https://github.com/jerfowler/ugly-blanket-brunch)
-
-
 ## Getting started
 
     brunch new <appname> --skeleton git://github.com/jerfowler/ExpressBrunchJade.git
     cd <appname>
-    brunch w -s -o
+    brunch w -s
 
 or
 
     $ git clone git://github.com/jerfowler/ExpressBrunchJade.git
     $ cd ExpressBrunchJade
     $ npm install
-    $ brunch w -s -o
+    $ brunch w -s
 
 or
 
-    $ git clone git://github.com/jerfowler/ExpressBrunchJade.git && cd ExpressBrunchJade && npm install && brunch w -s -o
+    $ git clone git://github.com/jerfowler/ExpressBrunchJade.git && cd ExpressBrunchJade && npm install && brunch w -s
+
+## Optimization Plugins
+
+The traditional uglify-brunch plugin has been replaced with ugly-blanket-brunch, which creates separate cov.js and min.js files.
+- [ugly-blanket-brunch v1.5.2](https://github.com/jerfowler/ugly-blanket-brunch)
+
+Optimization must be enabled when starting brunch
+
+    $ brunch w -s -o
+
 
 ## Testing
 

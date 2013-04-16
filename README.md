@@ -114,12 +114,12 @@ Note: Doesn't work in IE. Some tests fail with `global leak detected` in firefox
 
 Note: Windows phantomjs support is sketchy (path issues)
 
-### Testacular!!! Best approach, multiple browser tests (including phantomjs)...
+### Karma!!! (Formally Testacular) Best approach, multiple browser tests (including phantomjs)...
 
-    npm install -g testacular
-    testacular start --browsers Chrome,ChromeCanary,Firefox,PhantomJS
+    npm install -g karma
+    karma start --browsers Chrome,ChromeCanary,Firefox,PhantomJS
 
-Note: On Windows x64, use `testacular.x64_ENV.bat` to help with browser paths
+Note: On Windows x64, use `karma.x64_ENV.bat` to help with browser paths
 
 ## Debugging
 

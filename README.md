@@ -35,7 +35,7 @@ example:
                     reporter:'spec'
 ```
 
-## Cordell
+## Cordell Walker - CI Ranger
 The server walk and watch functionality has been made into its own module called Cordell. 
 - [Cordell](https://github.com/jerfowler/cordell)
 

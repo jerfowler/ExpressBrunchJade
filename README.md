@@ -61,7 +61,7 @@ The server walk and watch functionality has been made into its own module called
 
 ## Testing Framework
 
-- [Mocha v1.8.1](http://visionmedia.github.com/mocha)
+- [Mocha v1.8.1](http://mochajs.org/)
 - [Chai v1.4.1](http://chaijs.com)
 - [Sinon v1.5.2](http://sinonjs.org)
 - [Sinon-Chai v2.3.1](http://chaijs.com/plugins/sinon-chai)
